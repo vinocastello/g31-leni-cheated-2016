@@ -1,0 +1,12 @@
+baseurl = "https://marshblocker.github.io/g31-leni-cheated-2016/"
+title = "Twitter Detectives"
+author = "Group 31"
+paginate = 100
+theme = "arabica"
+
+[params]
+    description = "Hello Hello Hello"
+    dateFormatToUse = "January 1, 2006"
+    replaceGoogleFonts = "fonts.loli.net"
+    twitter = "test"
+    facebook = "test"
