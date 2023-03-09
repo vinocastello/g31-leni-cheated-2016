@@ -5,5 +5,3 @@ menu: main
 weight: -99
 ---
 
-![Scenario 1: Across columns](images/data_pipeline_with_srp.png)
-
