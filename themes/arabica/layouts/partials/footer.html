@@ -1,8 +1,7 @@
 <footer class="site-footer">
-  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
-  {{ with .Site.Params.twitter }}<section class="twitter"><a class="icon-twitter" href="https://twitter.com/{{ . }}"> {{ . }}</a></section>{{ end }}
-  {{ with .Site.Params.facebook }}<section class="facebook"><a class="icon-facebook" href="https://www.facebook.com/{{ . }}"> {{ . }}</a></section>{{ end }}
-  <section class="copyright">&copy; {{ now.Format "2006" }} {{ .Site.Title }}</section>
+  <!-- {{ with .Site.Params.twitter }}<section class="twitter"><a class="icon-twitter" href="https://twitter.com/{{ . }}"> {{ . }}</a></section>{{ end }}
+  {{ with .Site.Params.facebook }}<section class="facebook"><a class="icon-facebook" href="https://www.facebook.com/{{ . }}"> {{ . }}</a></section>{{ end }} -->
+  <section class="copyright">&copy; {{ now.Format "2006" }} {{ .Site.Title }} <a href="https://github.com/vinocastello/g31-leni-cheated-2016">(View on Github)</a> </section>
   <section class="poweredby"><a href="https://github.com/nirocfz/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 <!-- custom js -->
