@@ -5,6 +5,8 @@ menu: main
 weight: -100
 ---
 
+## Problem Formulations
+
 **Topic:** Leni cheated during the 2016 General Election
 
 **Research Question:** Which time period triggered the reemergence of tweets accusing Leni of cheating during the 2016 General Election?
