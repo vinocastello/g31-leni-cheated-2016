@@ -194,51 +194,147 @@ We do not need all the features listed above, so we first need to preprocess the
 
 ## Data Preprocessing
 
-Now that we have seen the nature of our dataset by exploring some of its characteristics, we modify the dataset so that it caters to the specific needs of our problem. When we contextualize our dataset, there might be instances where we will have to add or remove columns. We must also decide on what to do if we have missing values in our dataset.
-### Are there any unnecessary columns in the dataset that need to be removed?
-From our Action Plan, we have two main tasks. The first is to get the postsing date of the tweets that accuse Leni Robredo of cheating in the 2016 Philippine General Elections. Remember that the `Date posted` column was already previously discussed. This means that this is one of the columns that we will definitely keep. Meanwhile, our second task is to analyze the frequency of the tweets per date. For this, we will no longer need the following columns: `ID`, `Timestamp`, `Group`, `Collector`, `Keywords`, `Account name`, `Account bio`, `Screenshot`,`Category`, `Topic`, `Following`, `Followers`, `Tweet Translated`,  `Likes`, `Replies`, `Retweets`, `Quote Tweets`, `Views`, `Rating`, `Reasoning`, `Remarks`, `Reviewer`, and `Review`. These tweets were not included because they are not directly related to the to the frequency of tweets per day. At the bare minimum, we primarily need the `Date posted` column to include the tweet in the frequency count per day and the `Tweet ID` to ensure that this tweet is unique.
+Now that we have seen the basic description of our dataset, we preprocess the dataset so that it caters to the specific needs of our problem. When we contextualize our dataset, there might be instances where we will have to add or remove features. We must also decide on what to do if we have missing values in our dataset.
+
+### Are there any unnecessary features in the dataset that need to be removed?
+From our Action Plan, we have two main tasks. The first is to get the posting date of the tweets that accuse Leni Robredo of cheating in the 2016 Philippine General Elections. Remember that the `Date posted` feature was already previously discussed. This means that this is one of the features that we will definitely keep. Meanwhile, our second task is to analyze the frequency of the tweets per date. For this, we will no longer need the following features: `ID`, `Timestamp`, `Group`, `Collector`, `Keywords`, `Account name`, `Account bio`, `Screenshot`,`Category`, `Topic`, `Following`, `Followers`, `Tweet`, `Tweet Translated`,  `Likes`, `Replies`, `Retweets`, `Quote Tweets`, `Views`, `Rating`, `Reasoning`, `Remarks`, `Reviewer`, and `Review`. Here we drop the unnecessary features mentioned earlier and print the remaining features:
 
 ```python
 
-g31_data = g31_data.drop(['ID', 'Timestamp', 'Group', 'Collector', 'Keywords', 'Account name', 'Account bio', 'Screenshot','Category', 'Topic', 'Following', 'Followers', 'Tweet Translated', 'Likes', 'Replies', 'Retweets', 'Quote Tweets', 'Views', 'Rating', 'Reasoning', 'Remarks', 'Reviewer', 'Review'],axis = 1)
-g31_data.head()
+# Drop unecessary columns
+df = df.drop([
+        'ID', 'Timestamp', 'Group', 'Collector', 'Keywords', 
+        'Account name', 'Account bio', 'Screenshot','Category', 
+        'Topic', 'Following', 'Followers', 'Tweet', 'Tweet Translated', 
+        'Likes', 'Replies', 'Retweets', 'Quote Tweets', 'Views', 
+        'Rating', 'Reasoning', 'Remarks', 'Reviewer', 'Review'
+    ],
+    axis = 1
+)
+pretty_log('Remaining columns', list(df.columns))
  
 ```
+_Output:_
+```txt
+
+=============================================
+Remaining columns:
+[   'Tweet URL',
+    'Account handle',
+    'Account type',
+    'Joined',
+    'Location',
+    'Tweet Type',
+    'Date posted',
+    'Content type',
+    'Tweet ID']
+ 
+```
+
+We need the `Date posted` column to include the tweet in the frequency count per day and the `Tweet ID` to ensure that this tweet is unique. We also retain the `Account handle`, `Account type`, `Joined`, `Location`, `Tweet Type`, and `Content type` feature for additional exploration.
 
 ### Are there any missing values in the dataset?
-Now that we have eliminated the unnecessary columns in our dataset, we can now proceed to check if our relevant columns have missing values. This is to prevent errors when processing our data. To do this, we use panda's `isna` method.
+Now that we have eliminated the unnecessary features in our dataset, we can now proceed to check if our relevant features have missing values. This is to prevent errors when processing our data. To do this, we use panda's `isna()` method.
 
 ```python
 
-# check for missing values
-print(f"Number of entries with missing values = {g31_data.isna().sum()}")
+# Check for missing values
+pretty_log('Number of missing values per feature', df.isna().sum())
  
 ```
-Next, we can see that there are 209 missing entries for Location. This is understandable because not all twitter users put their location in their profile. To alleviate this, we are going to use panda's `fillna` method to fill in the null values with an emptys string.
+_Output:_
+```txt
+
+=============================================
+Number of missing values per feature:
+Tweet URL           0
+Account handle      0
+Account type        0
+Joined              0
+Location          209
+Tweet Type          0
+Date posted         0
+Content type        0
+Tweet ID            0
+dtype: int64
+ 
+```
+We can see that there are 209 missing entries for Location. This is understandable because not all twitter users put their location in their profile. To alleviate this, we are going to use panda's `fillna` method to fill in the null values with an empty string.
 
 ```python
 
-g31_data['Location'] = g31_data['Location'].fillna('')
-print(f"Number of entries with missing values = {g31_data.isna().sum()}")
+df['Location'] = df['Location'].fillna('')
+pretty_log('Number of missing values per feature', df.isna().sum())
  
 ```
+_Output:_
+```txt
 
-### Are there any columns in the dataset that need to be processed to simplify the data exploration process? Maybe create a new column?
-Because of the particular format of the `Date posted` column, Python’s pandas module interprets the values in this column as a string and not as a `datetime` object. This is problematic because we want to easily extract specific parts of our date like the year, month, and date. We can also easily perform operations like subtraction to get the elapsed time between two given date and timestamp. To accomplish this, we had to process the `Date posted` column in Python. Using the `strptime` method of the `datetime` object from the `datetime` module, we were able to convert the string date into a datetime object. We accomplished it using this:
+=============================================
+Number of missing values per feature:
+Tweet URL         0
+Account handle    0
+Account type      0
+Joined            0
+Location          0
+Tweet Type        0
+Date posted       0
+Content type      0
+Tweet ID          0
+dtype: int64
+ 
+```
+We have completely handled missing values in the dataset.
+
+### Are there any columns in the dataset that need to be processed to simplify the data exploration process?
+Because of the particular format of the `Date posted` column, Python’s pandas module interprets the values in this column as a string and not as a `datetime` object. This is problematic because we want to easily extract specific parts of our date like the year, month, and date. We can also easily perform operations like subtraction to get the elapsed time between two given date and timestamp. To accomplish this, we had to process the `Date posted` column in Python. We use `pd.to_datetime()` to convert the timestamp string to `pd.Timestamp` and `dt.date` to trim out the time portion of the timestamp:
 
 ```python
 
-import datetime as datetime
-string_date_time = “07/02/2018 11:38:08”
-dt = datetime.strptime(string_date_time, "%d/%m/%Y %H:%M:%S")
+df['Date posted'] = pd.to_datetime(df['Date posted'], format = "%d/%m/%Y %H:%M:%S").dt.date
+
+pretty_log('Date posted values', df.head()['Date posted'])
  
 ```
+_Output:_
+```txt
+
+=============================================
+Date posted values:
+0    2018-01-10
+1    2018-01-19
+2    2018-01-21
+3    2018-01-22
+4    2018-01-22
+Name: Date posted, dtype: object
+ 
+```
+With this, we have binned the `Date posted` feature by date which originally has a by-second interval.
+
+Let us again get a glimpse of the dataset to see the differences made by the preprocess step:
 
 ```python
 
-g31_data['Date posted'] = pd.to_datetime(g31_data['Date posted'], format = "%d/%m/%Y %H:%M:%S")
-g31_data.head()
+pretty_log('First entry of the dataset', df.iloc[0])
+
+```
+_Output:_
+```txt
+
+=============================================
+First entry of the dataset:
+Tweet URL         https://twitter.com/VincegDelgado/status/95122...
+Account handle                                       @VincegDelgado
+Account type                                             Identified
+Joined                                                        06/23
+Location                                    The Global City, Taguig
+Tweet Type                                              Text, Reply
+Date posted                                              2018-01-10
+Content type                                               Rational
+Tweet ID                                         951221523662057473
+Name: 0, dtype: object
  
 ```
+This is enough to proceed with data exploration.
 
 ## Data Exploration
