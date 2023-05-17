@@ -432,7 +432,7 @@ plt.show()
 ```
 _Output:_
 
-![Tweets Frequency Line Graph](images/tweets-frequency-graph.png)
+![Tweets Frequency Line Graph](images/tweets-yearly-frequency-graph.png)
 
 From the graph above, we can see that the year 2018 saw the highest number of tweets claiming that Leni Robredo cheated in the 2016 elections. This may come out as surprising because it has been 2 years already since Marcos first filed an electoral protest against Robredo's win. And it is also 4 years ahead of the 2022 Philippine National Elections where anti-Leni forces reiterated the narrative that Leni cheated in the 2016 election.
 
