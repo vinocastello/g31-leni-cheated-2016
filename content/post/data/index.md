@@ -107,7 +107,7 @@ Name: 0, dtype: object
 ```
 That's a lot of features! Later on, we will process our dataset to remove some features that we do not need. But for now, we will answer some basic questions about our dataset.
 
-### How many tweets have your group collected?
+### How many tweets are in the dataset?
 
 Let's count the total entries in the dataframe to get the total number of tweets we
 have collected:
@@ -125,7 +125,7 @@ Total number of collected tweets: 468
 ```
 We have collected 468 tweets.
 
-### What are the features of your dataset?
+### What are the features of the dataset?
 
 Let's get the shape of the dataset and print the number of columns it has:
 
