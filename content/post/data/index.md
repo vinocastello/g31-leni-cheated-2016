@@ -341,3 +341,19 @@ Name: 0, dtype: object
 This is enough to proceed with data exploration.
 
 ## Data Exploration
+
+Before we can proceed with the exploration, we must have a clear understanding of the characteristics of our features. Hence, we must know the distribution of our features.
+
+### Features Distribution
+
+Besides the distribution of the number of tweets per date (which is the main focus of our exploration), we want to know the distribution of our other features, specifically the `Account type` feature and the `Content type` feature.
+
+1. Account Type Distribution
+![Account type distribution](images/account-type-distribution.png)
+
+As we can see, majority of the users who posted misinformation/disinformation regarding the topic are anonymous. If we consider the fact that most trolls who post misinformation/disinformation have concealed identity, then this distribution supports that fact.
+
+2. Content Type
+![Content type distribution](images/content-type-distribution.png)
+
+Note that the second bar represents 'Emotional, Rational' and the fourth bar represents 'Rational, Emotional' which means they are the same. We can observe that majority of the tweets are emotional and almost half of them are rational. If the users aim to spread misinformation/disinformation, then it makes sense that most of them will appeal to the emotions of the readers rather than their rationality since the barrier of persuasion is lower in most cases.
