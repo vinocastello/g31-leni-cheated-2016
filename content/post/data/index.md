@@ -194,4 +194,51 @@ We do not need all the features listed above, so we first need to preprocess the
 
 ## Data Preprocessing
 
+Now that we have seen the nature of our dataset by exploring some of its characteristics, we modify the dataset so that it caters to the specific needs of our problem. When we contextualize our dataset, there might be instances where we will have to add or remove columns. We must also decide on what to do if we have missing values in our dataset.
+### Are there any unnecessary columns in the dataset that need to be removed?
+From our Action Plan, we have two main tasks. The first is to get the postsing date of the tweets that accuse Leni Robredo of cheating in the 2016 Philippine General Elections. Remember that the `Date posted` column was already previously discussed. This means that this is one of the columns that we will definitely keep. Meanwhile, our second task is to analyze the frequency of the tweets per date. For this, we will no longer need the following columns: `ID`, `Timestamp`, `Group`, `Collector`, `Keywords`, `Account name`, `Account bio`, `Screenshot`,`Category`, `Topic`, `Following`, `Followers`, `Tweet Translated`,  `Likes`, `Replies`, `Retweets`, `Quote Tweets`, `Views`, `Rating`, `Reasoning`, `Remarks`, `Reviewer`, and `Review`. These tweets were not included because they are not directly related to the to the frequency of tweets per day. At the bare minimum, we primarily need the `Date posted` column to include the tweet in the frequency count per day and the `Tweet ID` to ensure that this tweet is unique.
+
+```python
+
+g31_data = g31_data.drop(['ID', 'Timestamp', 'Group', 'Collector', 'Keywords', 'Account name', 'Account bio', 'Screenshot','Category', 'Topic', 'Following', 'Followers', 'Tweet Translated', 'Likes', 'Replies', 'Retweets', 'Quote Tweets', 'Views', 'Rating', 'Reasoning', 'Remarks', 'Reviewer', 'Review'],axis = 1)
+g31_data.head()
+ 
+```
+
+### Are there any missing values in the dataset?
+Now that we have eliminated the unnecessary columns in our dataset, we can now proceed to check if our relevant columns have missing values. This is to prevent errors when processing our data. To do this, we use panda's `isna` method.
+
+```python
+
+# check for missing values
+print(f"Number of entries with missing values = {g31_data.isna().sum()}")
+ 
+```
+Next, we can see that there are 209 missing entries for Location. This is understandable because not all twitter users put their location in their profile. To alleviate this, we are going to use panda's `fillna` method to fill in the null values with an emptys string.
+
+```python
+
+g31_data['Location'] = g31_data['Location'].fillna('')
+print(f"Number of entries with missing values = {g31_data.isna().sum()}")
+ 
+```
+
+### Are there any columns in the dataset that need to be processed to simplify the data exploration process? Maybe create a new column?
+Because of the particular format of the `Date posted` column, Python’s pandas module interprets the values in this column as a string and not as a `datetime` object. This is problematic because we want to easily extract specific parts of our date like the year, month, and date. We can also easily perform operations like subtraction to get the elapsed time between two given date and timestamp. To accomplish this, we had to process the `Date posted` column in Python. Using the `strptime` method of the `datetime` object from the `datetime` module, we were able to convert the string date into a datetime object. We accomplished it using this:
+
+```python
+
+import datetime as datetime
+string_date_time = “07/02/2018 11:38:08”
+dt = datetime.strptime(string_date_time, "%d/%m/%Y %H:%M:%S")
+ 
+```
+
+```python
+
+g31_data['Date posted'] = pd.to_datetime(g31_data['Date posted'], format = "%d/%m/%Y %H:%M:%S")
+g31_data.head()
+ 
+```
+
 ## Data Exploration
