@@ -291,7 +291,10 @@ Because of the particular format of the `Date posted` column, Python’s pandas 
 
 ```python
 
-df['Date posted'] = pd.to_datetime(df['Date posted'], format = "%d/%m/%Y %H:%M:%S").dt.date
+df['Date posted'] = pd.to_datetime(
+        df['Date posted'], 
+        format = "%d/%m/%Y %H:%M:%S"
+    ).dt.date
 
 pretty_log('Date posted values', df.head()['Date posted'])
  
@@ -316,7 +319,7 @@ Let us again get a glimpse of the dataset to see the differences made by the pre
 ```python
 
 pretty_log('First entry of the dataset', df.iloc[0])
-
+ 
 ```
 _Output:_
 ```txt
