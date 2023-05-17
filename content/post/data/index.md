@@ -357,3 +357,93 @@ As we can see, majority of the users who posted misinformation/disinformation re
 ![Content type distribution](images/content-type-distribution.png)
 
 Note that the second bar represents 'Emotional, Rational' and the fourth bar represents 'Rational, Emotional' which means they are the same. We can observe that majority of the tweets are emotional and almost half of them are rational. If the users aim to spread misinformation/disinformation, then it makes sense that most of them will appeal to the emotions of the readers rather than their rationality since the barrier of persuasion is lower in most cases.
+
+### What is the time range of the tweets in the dataset?
+
+The time range of the tweets in the dataset is between May 2016 and December 2022. We obtained this through sorting the data by ‘Date posted’ and identifying the topmost (least recent) and bottommost (most recent) tweet in our sorted dataset.
+
+```python
+
+# sort the dataframe by the datetime column in ascending order
+df = df.sort_values(by='Date posted', ascending=True)
+
+# select the least recent time by selecting the first row
+least_recent_time = df.iloc[0]['Date posted']
+
+# sort the dataframe by the datetime column in descending order
+df = df.sort_values(by='Date posted', ascending=False)
+
+# select the most recent time by selecting the first row
+most_recent_time = df.iloc[0]['Date posted']
+
+log("First tweet", least_recent_time)
+log("Last Tweet", most_recent_time)
+ 
+```
+_Output:_
+```txt
+
+=============================================
+First tweet: 2016-05-11
+=============================================
+Last Tweet: 2022-12-13
+ 
+```
+
+### What is the distribution of tweets over time?
+
+```python
+
+tweets_freq = df['Date posted'].value_counts()
+tweets_freq.plot(title = "Frequency of tweets per day")
+ 
+```
+_Output:_
+
+![Tweets Frequency Line Graph](images/tweets-frequency-graph.png)
+
+Below are some observations from our plot above: 
+
+1.   During 2016 to early 2017, the tweets posted ranges from 3-5 tweets per day. We can also notice that there were some months during 2016 when there is only 1 tweet posted per day.
+
+2.   Notice how the number of tweets spiked during late 2017 with 2-9 tweets posted per day and late 2018 with 2-8 tweets per day. These are the years when there were a lot of tweets posted regarding our chosen topic.
+3.   In the years 2019 to 2021, there are only 1-2 tweets posted.
+4.   During late 2021 until mid 2022, we can observe that there is a pattern here. There were 2 tweets posted almost everyday until there was a sudden spike in mid 2022 which continued before the start of 2023.
+
+### Yearly frequency of tweets
+
+```python
+
+yearly_data = dict()
+for index, row in df.iterrows():
+    # print(row['Date posted'].year)
+    yr = row['Date posted'].year
+    if yr not in yearly_data:
+        yearly_data[yr] = 1
+    else:
+        yearly_data[yr] += 1
+
+plt.bar(range(len(yearly_data)), yearly_data.values(), tick_label=list(yearly_data.keys()))
+plt.xlabel('Year')
+plt.ylabel('Number of tweets posted')
+plt.title("Yearly frequency of tweets")
+plt.show()
+ 
+```
+_Output:_
+
+![Tweets Frequency Line Graph](images/tweets-frequency-graph.png)
+
+From the graph above, we can see that the year 2018 saw the highest number of tweets claiming that Leni Robredo cheated in the 2016 elections. This may come out as surprising because it has been 2 years already since Marcos first filed an electoral protest against Robredo's win. And it is also 4 years ahead of the 2022 Philippine National Elections where anti-Leni forces reiterated the narrative that Leni cheated in the 2016 election.
+
+### Are there any outliers in the time series data?
+
+The sudden spike of the number of tweets during 2017 and 2018 is considered outliers in our time series data since it is not connected in our hypothesis. We do not know what caused this sudden spike.
+
+### Are there any significant events or changes in the time series data (e.g. sudden drops or spikes)?
+
+From our observation, 2018 was the year when there were a lot of tweets accusing Leni of cheating in the 2016 General election. However, notice that there was a sudden drop on the number of tweets during the years 2019 until 2021. Then, there was a noticeable pattern during 2022 and the number of tweets suddenly spiked mid- and late 2022.
+
+### Is there a relationship between the time series data and any external variables?
+
+Note that Leni Robredo filed her Certificate of Candidacy for Presidency last October 7, 2022. As can be seen from our plot, there was a sudden spike during late 2022. Hence, this event might have led to sudden changes in our time series data.
