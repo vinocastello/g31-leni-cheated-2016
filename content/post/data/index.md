@@ -69,41 +69,41 @@ _Output:_
 
 =============================================
 First entry:
-ID 31-1
-Timestamp 03/31/2023 16:43:12
-Tweet URL https://twitter.com/VincegDelgado/status/95122...
-Group 31
-Collector De Castro, Hans Gabriel
-Category RBRD
-Topic Leni cheated during the 2016 General Election
-Keywords fakevp, mandaraya, 2016, leni, cheater, vp, ro...
-Account handle @VincegDelgado
-Account name Bee Scent Tea
-Account bio A father, a Mentor, a Student, and I make change!
-Account type Identified
-Joined 06/23
-Following 405
-Followers 7
-Location The Global City, Taguig
-Tweet correct! y shud he? he is our genuine VP not t...
-Tweet Translated NaN
-Tweet Type Text, Reply
-Date posted 01/10/2018 22:37:38
-Screenshot NaN
-Content type Rational
-Likes 1.0
-Replies 0.0
-Retweets 1.0
-Quote Tweets 0.0
-Views NaN
-Rating NaN
-Reasoning The tweet is a mis/disinformation since PET ju...
-Remarks NaN
-Tweet ID 951221523662057473
-Reviewer NaN
-Review NaN
+ID                                                               31-1
+Timestamp                                         03/31/2023 16:43:12
+Tweet URL           https://twitter.com/VincegDelgado/status/95122...
+Group                                                              31
+Collector                                     De Castro, Hans Gabriel
+Category                                                         RBRD
+Topic                   Leni cheated during the 2016 General Election
+Keywords            fakevp, mandaraya, 2016, leni, cheater, vp, ro...
+Account handle                                         @VincegDelgado
+Account name                                            Bee Scent Tea
+Account bio         A father, a Mentor, a Student, and I make change!
+Account type                                               Identified
+Joined                                                          06/17
+Following                                                         405
+Followers                                                           7
+Location                                      The Global City, Taguig
+Tweet               correct! y shud he? he is our genuine VP not t...
+Tweet Translated                                                  NaN
+Tweet Type                                                Text, Reply
+Date posted                                       10/01/2018 22:37:00
+Screenshot                                                        NaN
+Content type                                                 Rational
+Likes                                                             1.0
+Replies                                                           0.0
+Retweets                                                          1.0
+Quote Tweets                                                      0.0
+Views                                                             NaN
+Rating                                                            NaN
+Reasoning           The tweet is a mis/disinformation since PET ju...
+Remarks                                                           NaN
+Tweet ID                                           951221523662057473
+Reviewer                                                          NaN
+Review                                                            NaN
 Name: 0, dtype: object
- 
+  
 ```
 That's a lot of features! Later on, we will process our dataset to remove some features that we do not need. But for now, we will answer some basic questions about our dataset.
 
@@ -329,7 +329,7 @@ First entry of the dataset:
 Tweet URL         https://twitter.com/VincegDelgado/status/95122...
 Account handle                                       @VincegDelgado
 Account type                                             Identified
-Joined                                                        06/23
+Joined                                                        06/17
 Location                                    The Global City, Taguig
 Tweet Type                                              Text, Reply
 Date posted                                              2018-01-10
