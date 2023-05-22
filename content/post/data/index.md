@@ -287,7 +287,7 @@ dtype: int64
 We have completely handled missing values in the dataset.
 
 ### Are there any columns in the dataset that need to be processed to simplify the data exploration process?
-Because of the particular format of the `Date posted` column, Python’s pandas module interprets the values in this column as a string and not as a `datetime` object. This is problematic because we want to easily extract specific parts of our date like the year, month, and date. We can also easily perform operations like subtraction to get the elapsed time between two given date and timestamp. To accomplish this, we had to process the `Date posted` column in Python. We use `pd.to_datetime()` to convert the timestamp string to `pd.Timestamp` and `dt.date` to trim out the time portion of the timestamp:
+Because of the particular format of the `Date posted` and `Joined` column, Python’s pandas module interprets the values in this column as a string and not as a `datetime` object. This is problematic because we want to easily extract specific parts of our date like the year, month, and date. We can also easily perform operations like subtraction to get the elapsed time between two given date and timestamp. To accomplish this, we had to process the `Date posted` and `Joined` column in Python. We use `pd.to_datetime()` to convert the timestamp string to `pd.Timestamp` and `dt.date` to trim out the time portion of the timestamp:
 
 ```python
 
@@ -296,7 +296,13 @@ df['Date posted'] = pd.to_datetime(
         format = "%d/%m/%Y %H:%M:%S"
     ).dt.date
 
+df['Joined'] = pd.to_datetime(
+        df['Joined'], 
+        format='%m/%y'
+    ).dt.date
+
 pretty_log('Date posted values', df.head()['Date posted'])
+pretty_log('Join date', df.head()['Joined'])
  
 ```
 _Output:_
@@ -310,9 +316,17 @@ Date posted values:
 3    2018-01-22
 4    2018-01-22
 Name: Date posted, dtype: object
+=============================================
+Join date:
+330    2015-12-01
+174    2021-12-01
+173    2021-11-01
+172    2020-03-01
+204    2020-04-01
+Name: Joined, dtype: object
  
 ```
-With this, we have binned the `Date posted` feature by date which originally has a by-second interval.
+With this, we have formatted the `Date posted` and `Joined` feature, and binned the `Date posted` feature by date which originally has a by-second interval.
 
 Let us again get a glimpse of the dataset to see the differences made by the preprocess step:
 
@@ -329,7 +343,7 @@ First entry of the dataset:
 Tweet URL         https://twitter.com/VincegDelgado/status/95122...
 Account handle                                       @VincegDelgado
 Account type                                             Identified
-Joined                                                        06/17
+Joined                                                   2017-06-01
 Location                                    The Global City, Taguig
 Tweet Type                                              Text, Reply
 Date posted                                              2018-01-10
@@ -344,19 +358,6 @@ This is enough to proceed with data exploration.
 
 Before we can proceed with the exploration, we must have a clear understanding of the characteristics of our features. Hence, we must know the distribution of our features.
 
-### Features Distribution
-
-Besides the distribution of the number of tweets per date (which is the main focus of our exploration), we want to know the distribution of our other features, specifically the `Account type` feature and the `Content type` feature.
-
-1. Account Type Distribution
-![Account type distribution](images/account-type-distribution.png)
-
-As we can see, majority of the users who posted misinformation/disinformation regarding the topic are anonymous. If we consider the fact that most trolls who post misinformation/disinformation have concealed identity, then this distribution supports that fact.
-
-2. Content Type
-![Content type distribution](images/content-type-distribution.png)
-
-Note that the second bar represents 'Emotional, Rational' and the fourth bar represents 'Rational, Emotional' which means they are the same. We can observe that majority of the tweets are emotional and almost half of them are rational. If the users aim to spread misinformation/disinformation, then it makes sense that most of them will appeal to the emotions of the readers rather than their rationality since the barrier of persuasion is lower in most cases.
 
 ### What is the time range of the tweets in the dataset?
 Since this project employs time series analysis, we do not just focus on the characteristics of the tweet itself. We primarily analyze the time in which the tweet was posted. But since this topic existed at a particular point in Philippine history, we must limit the scope of the tweets that we will include in our data set.
@@ -458,3 +459,114 @@ From our observation, 2018 was the year when there were a lot of tweets accusing
 Still in relation with identifying the events that reflects our time series data, we now try to figure out what were the material conditions that gave birth to the data that we currently have. With this, we can provide better insights that can be used by future researchers as well when expanding this study.
 
 Note that Leni Robredo filed her Certificate of Candidacy for Presidency last October 7, 2022. As can be seen from our plot, there was a sudden spike during late 2022. Hence, this event might have led to sudden changes in our time series data.
+## Further Exploration
+
+### How many tweets does each user have in the dataset?
+
+```python
+
+pretty_log(
+    'Number of tweets per account handle', 
+    df['Account handle'].value_counts())
+
+pretty_log(
+    'Number of number of tweets per account handle', 
+    df['Account handle'].value_counts().value_counts())
+ 
+```
+_Output:_
+```txt
+
+=============================================
+Number of tweets per account handle:
+@ThyzenKingTrix    26
+@yamgishi          12
+@tinkerbeen         9
+@GraceEverlast      8
+@EddieQuyo          7
+                   ..
+@jhaeCamp           1
+@wokuge05           1
+@eriyaaaahh         1
+@TenorioCess        1
+@quoleetz           1
+Name: Account handle, Length: 321, dtype: int64
+=============================================
+Number of number of tweets per account handle:
+1     265
+2      32
+3       9
+5       4
+4       4
+7       2
+26      1
+12      1
+9       1
+8       1
+6       1
+Name: Account handle, dtype: int64
+ 
+```
+As we can see, @ThyzenKingTrix have 26 tweets that are included in our dataset. This is alarming since it is possible that he/she could be a troll. Looking at the second table, we can see that majority of the tweets are posted by unique accounts, so it is still inconclusive whether there is a pattern of deliberate mis/disinformation with regards to our topic.
+
+Next, we want to know in general what type of user posts mis/disinformation tweets regarding our topic.
+### What is the number of tweets between different account types?
+
+```python
+
+pretty_log('Tweets per account type', df['Account type'].value_counts())
+ 
+```
+_Output:_
+```txt
+
+=============================================
+Tweets per account type:
+Anonymous     324
+Identified    140
+Media           3
+Name: Account type, dtype: int64
+ 
+```
+To visualize this, we can use the built-in 'Column Stats' of Google Sheets:
+
+![Account type distribution](images/account-type-distribution.png)
+
+
+As we can see, majority of the users who posted misinformation/disinformation regarding the topic are anonymous. If we consider the fact that most trolls who post misinformation/disinformation have concealed identity, then this distribution supports that fact.
+
+Next, we can explore the number of tweets per content type. This would be useful to determine the pattern/strategy of the tweets that post dis/misinformation.
+
+### What is the the number of tweets between different content types?
+
+We can again use the 'Column Stats' of Google Sheets to visualize this:
+
+![Content type distribution](images/content-type-distribution.png)
+
+Note that the second bar represents 'Emotional, Rational' and the fourth bar represents 'Rational, Emotional' which means they are the same. We can observe that majority of the tweets are emotional and almost half of them are rational. If the users aim to spread misinformation/disinformation, then it makes sense that most of them will appeal to the emotions of the readers rather than their rationality since the barrier of persuasion is lower in most cases.
+
+Lastly, we can explore the distribution of the `Join` feature to determine when the users in the dataset joined Twitter.
+### What is the distribution of the Join Date of the users in the dataset?
+
+```python
+
+import matplotlib.dates as mdates
+
+# Count all joined dates per occurrences.
+counts = df.groupby(df['Joined'].dt.date).size()
+
+# Plot as a line graph
+plt.plot(counts.index, counts.values)
+plt.xlabel('Year')
+plt.ylabel('Number of users that joined Twitter')
+plt.title('Distribution of when users joined Twitter')
+plt.xticks(rotation=45)
+plt.gca().xaxis.set_major_locator(mdates.YearLocator(1))
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+plt.show()
+ 
+```
+_Output:_
+![Distribution of Join Date](images/join-distribution.png)
+
+As we can see, many of the users in the dataset joined Twitter from 2015 to 2017.
