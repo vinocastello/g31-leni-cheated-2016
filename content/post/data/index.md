@@ -359,6 +359,7 @@ As we can see, majority of the users who posted misinformation/disinformation re
 Note that the second bar represents 'Emotional, Rational' and the fourth bar represents 'Rational, Emotional' which means they are the same. We can observe that majority of the tweets are emotional and almost half of them are rational. If the users aim to spread misinformation/disinformation, then it makes sense that most of them will appeal to the emotions of the readers rather than their rationality since the barrier of persuasion is lower in most cases.
 
 ### What is the time range of the tweets in the dataset?
+Since this project employs time series analysis, we do not just focus on the characteristics of the tweet itself. We primarily analyze the time in which the tweet was posted. But since this topic existed at a particular point in Philippine history, we must limit the scope of the tweets that we will include in our data set.
 
 The time range of the tweets in the dataset is between May 2016 and December 2022. We obtained this through sorting the data by ‘Date posted’ and identifying the topmost (least recent) and bottommost (most recent) tweet in our sorted dataset.
 
@@ -392,6 +393,8 @@ Last Tweet: 2022-12-13
 
 ### What is the distribution of tweets over time?
 
+After determining the scope of the date of our tweets, we can now begin to contextualize our tweets. By checking the freequency of tweets per day in our range, we can identify which months or time range are of particular importance to us. But even if a time range does not have a lot of tweets, then it still provides insights because it is telling us another story that we can rationalize by cross-checking our data with the timeline of this topic.
+
 ```python
 
 tweets_freq = df['Date posted'].value_counts()
@@ -411,6 +414,8 @@ Below are some observations from our plot above:
 4.   During late 2021 until mid 2022, we can observe that there is a pattern here. There were 2 tweets posted almost everyday until there was a sudden spike in mid 2022 which continued before the start of 2023.
 
 ### Yearly frequency of tweets
+
+Previously, we checked the frequency of tweets per day. But the impact of real world events do not just affect people during that day. It creates a ripple through time. Hence, it becomes important for us to group certain dates so that we can create more insightful analysis. Hence, we check the yearly frequency of our dataset so that we can see how this topic grew as the careers of both Leni and Marcos progressed.
 
 ```python
 
@@ -438,12 +443,18 @@ From the graph above, we can see that the year 2018 saw the highest number of tw
 
 ### Are there any outliers in the time series data?
 
+Because we are handling a sensitive topic - misinformation, we cannot afford to have faulty interpretations of our data. Creating interpretations without pointing out the existence of outliers in our dataset can provide more harm than good in this age when troll farms intentionally spew out lies in order to shape the political climate.
+
 The sudden spike of the number of tweets during 2017 and 2018 is considered outliers in our time series data since it is not connected in our hypothesis. We do not know what caused this sudden spike.
 
 ### Are there any significant events or changes in the time series data (e.g. sudden drops or spikes)?
 
+Now that we have identified the outliers in our data, we can now carefully identify the topic's relevant events and cross-examine them with our data.
+
 From our observation, 2018 was the year when there were a lot of tweets accusing Leni of cheating in the 2016 General election. However, notice that there was a sudden drop on the number of tweets during the years 2019 until 2021. Then, there was a noticeable pattern during 2022 and the number of tweets suddenly spiked mid- and late 2022.
 
 ### Is there a relationship between the time series data and any external variables?
+
+Still in relation with identifying the events that reflects our time series data, we now try to figure out what were the material conditions that gave birth to the data that we currently have. With this, we can provide better insights that can be used by future researchers as well when expanding this study.
 
 Note that Leni Robredo filed her Certificate of Candidacy for Presidency last October 7, 2022. As can be seen from our plot, there was a sudden spike during late 2022. Hence, this event might have led to sudden changes in our time series data.
