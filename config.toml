@@ -5,7 +5,7 @@ paginate = 100
 theme = "arabica"
 
 [params]
-    description = "Finding the truth using Twitter and Data Science"
+    description = "Tracking down the truth using Twitter and Data Science"
     dateFormatToUse = "January 1, 2006"
     replaceGoogleFonts = "fonts.loli.net"
     twitter = "test"
