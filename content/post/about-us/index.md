@@ -7,6 +7,8 @@ weight: -96
 
 # The Team
 
+![Self-portrait image of Hans](pics/hans_pic.jpg)
+
 Equipped with knowledge about data science and machine learning, we, a group of data science students from the University of the Philippines - Diliman, seek to understand how mis/disinformation spread in social media platforms like Twitter.
 
 Also provided below are our email addresses that you can use to contact us.
@@ -18,7 +20,7 @@ Also provided below are our email addresses that you can use to contact us.
 A 4th year BS Computer Science student at UP Diliman. He has experience in teaching Python to kids and teens. But as a hobby, he modifies his Android devices at usually the root level to obtain better performance and battery life. He is also very passionate in fighting for human rights and social justice.
 ## Jemimah Mae Isaig
 *jcisaig@up.edu.ph*
-![Self-portrait image of Jem](pics/jem_pic.jpg)
+![Self-portrait image of Jem](pics/jem_small.jpg)
 A 3rd year BS Computer Science student at UP Diliman. She shows interest in electronics and software engineering. She enjoys singing and playing musical instruments as a hobby.
 ## Gabriel Kenneth Mariñas
 *glmarinas@up.edu.ph*
