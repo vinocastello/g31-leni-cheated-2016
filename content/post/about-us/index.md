@@ -7,7 +7,7 @@ weight: -96
 
 # The Team
 
-![Logo](pics/logo-black.png)
+![Logo](pics/logo_edited.png)
 
 Equipped with knowledge about data science and machine learning, we, a group of data science students from the University of the Philippines - Diliman, seek to understand how mis/disinformation spread in social media platforms like Twitter.
 
