@@ -19,4 +19,6 @@ We note that the algorithm is able to detect the last lowest peak of the time-se
 
 [2] “Fact-check: 2016 vice presidency was not ‘stolen’ from Marcos,” #PressOnePH, https://pressone.ph/fact-check-2016-vice-presidency-was-not-stolen-from-marcos/ (accessed Jun. 7, 2023).
 
-[3]“Marcos Seeks Inhibition of Associate Justice Caguioa in Poll Protest Case.” Cnn, 6 Aug. 2018, www.cnnphilippines.com/news/2018/08/06/Marcos-wants-Associate-Justice-Caguioa-out-election-case.html.
+[3]“Marcos Seeks Inhibition of Associate Justice Caguioa in Poll Protest Case.” Cnn, 6 Aug. 2018, www.cnnphilippines.com/news/2018/08/06/Marcos-wants-Associate-Justice-Caguioa-out-election-case.html.'
+
+[4] P. Pasion, “Timeline: Marcos-Robredo election case,” RAPPLER, https://www.rappler.com/newsbreak/iq/timeline-bongbong-marcos-leni-robredo-election-case/ (accessed Jun. 27, 2023). 
