@@ -9,6 +9,7 @@ Since we want to know if the chosen period of our hypothesis represents an incre
 
 ```python
 
+# IMPORTANT: The code in the Data section must be run before the code below is run.
 import ruptures as rpt
 import plotly.graph_objects as go
 import functools
@@ -61,12 +62,10 @@ for m in result[:-2]:
     else:
         axs.axvline(x=bp.date(), color='#FE18A3', linestyle='--')
 
-# Plot a vertical line representing the date of Leni's announcement of candidacy
-# (start period of hypothesis).
+# Plot a vertical line representing the date of Leni's announcement of candidacy (start period of hypothesis).
 axs.axvline(x=datetime(2021, 10, 7).date(), color='orange', linestyle='-', label="Leni runs for president")
 
-# Plot a vertical line representing the date of BBM's first SONA 
-# (end period of hypothesis)
+# Plot a vertical line representing the date of BBM's first SONA (end period of hypothesis).
 axs.axvline(x=datetime(2022, 8, 25).date(), color='green', linestyle='-', label="BBM's first SONA")
 
 plt.subplots_adjust(hspace=1.5)
