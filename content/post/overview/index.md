@@ -25,5 +25,5 @@ Presented below is the formal definition of our problem:
 
 **Action Plan:** Determine the posting date of tweets accusing Leni of cheating during the 2016 General Election and analyze the frequency of tweets using a line chart.
 
-## Course of action
+## Course of Action
 Because we were able to define our problem clearly, we were able to describe, preprocess, and explore our data in the [Data section](/g31-leni-cheated-2016/post/data). This allowed us to apply the correct data modeling technique in our [Data modeling section](/g31-leni-cheated-2016/post/methods/). Afterwards, we were able to obtain results that yielded important insights about our problem in the [Results and Conclusion section](/g31-leni-cheated-2016/post/results/).
