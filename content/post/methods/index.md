@@ -86,4 +86,4 @@ plt.savefig('data_modeling.png',transparent=True, bbox_inches='tight')
  
 ```
 
-In the _Results_ section, we show and discuss the result of the code above.
+In the [Results section](/g31-leni-cheated-2016/post/results/), we show and discuss the result of the code above.
