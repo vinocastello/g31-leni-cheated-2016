@@ -16,21 +16,25 @@ from dateutil.relativedelta import relativedelta
 
 start = datetime(2016, 1, 1)
 end = datetime(2023, 1, 1) - timedelta(1)
-counts = {}
+counts = {}     # This stores the tweet frequency per month time-series data
 
+# Initialize tweet frequency per month to 0
 while start <= end:
     counts[start.date()] = 0
     start += relativedelta(months=1)
 
+# This stores the tweet frequency but without binning
 freq = df['Date posted'].value_counts().to_dict()
 
+# Fill counts using freq
 for i in freq:
     new = datetime(year=i.year, month=i.month, day=1)
     counts[new.date()] += freq[i]
 
+# Transform counts to an array to make it suitable for the PELT algorithm
 data = np.array(list(counts.values()))
 
-# Parameters
+# PELT algorithm parameters
 MODEL = 'l1'
 MIN_SIZE = 3
 JUMP = 1
@@ -43,6 +47,7 @@ axs.plot(counts.keys(), counts.values(),color = "#1C03DC")
 axs.set_xlabel('Month')
 axs.set_ylabel('Tweets')
 
+# Generate breakpoints of the time-series data using the PELT algorithm
 result = rpt.Pelt(model=MODEL, min_size=MIN_SIZE, jump=JUMP).fit_predict(data, pen=PEN)
 
 # Plot breakpoints.
@@ -56,10 +61,12 @@ for m in result[:-2]:
     else:
         axs.axvline(x=bp.date(), color='#FE18A3', linestyle='--')
 
-# Leni's announcement of candidacy (start period of hypothesis).
+# Plot a vertical line representing the date of Leni's announcement of candidacy
+# (start period of hypothesis).
 axs.axvline(x=datetime(2021, 10, 7).date(), color='orange', linestyle='-', label="Leni runs for president")
 
-# BBM's first SONA (end period of hypothesis)
+# Plot a vertical line representing the date of BBM's first SONA 
+# (end period of hypothesis)
 axs.axvline(x=datetime(2022, 8, 25).date(), color='green', linestyle='-', label="BBM's first SONA")
 
 plt.subplots_adjust(hspace=1.5)
@@ -86,4 +93,4 @@ plt.savefig('data_modeling.png',transparent=True, bbox_inches='tight')
  
 ```
 
-In the _Results_ section, we show and discuss the result of the code above.
+In the [Results section](/g31-leni-cheated-2016/post/results/), we show and discuss the result of the code above.
